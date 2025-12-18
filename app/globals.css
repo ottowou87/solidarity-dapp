@@ -1,26 +1,242 @@
-@import "tailwindcss";
+/* ========================================================= */
+/*  TAILWIND CORE                                            */
+/* ========================================================= */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ========================================================= */
+/*  GLOBAL DARK THEME — SLD SOLIDARITY                       */
+/* ========================================================= */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-[#0a0a0d] text-slate-100 min-h-screen;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Brand colors */
+:root {
+  --sld-gold: linear-gradient(90deg, #f6d67b, #e7b64c, #ffdf8c);
+  --sld-glow: 0 0 15px rgba(255, 204, 102, 0.4);
+  --sld-card: rgba(255, 255, 255, 0.04);
+  --sld-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ========================================================= */
+/*  ANIMATIONS                                               */
+/* ========================================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn 0.45s ease-out both; }
+
+/* ========================================================= */
+/*  GOLD TEXT + GLOW                                         */
+/* ========================================================= */
+.text-gold {
+  background: var(--sld-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-gold {
+  text-shadow: 0 0 12px rgba(255, 200, 80, 0.5);
+}
+
+/* ========================================================= */
+/*  BUTTONS                                                  */
+/* ========================================================= */
+.btn-gold {
+  background: var(--sld-gold);
+  @apply text-slate-900 font-semibold rounded-xl px-5 py-3 transition-all shadow-lg;
+}
+.btn-gold:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--sld-glow);
+}
+
+.btn-yellow {
+  @apply px-5 py-3 bg-yellow-400 text-black font-bold rounded-xl 
+         hover:bg-yellow-300 transition shadow-lg;
+}
+
+.btn-green {
+  @apply px-5 py-3 bg-emerald-500 text-white font-bold rounded-xl 
+         hover:bg-emerald-400 transition shadow-lg;
+}
+
+.btn-red {
+  @apply px-5 py-3 bg-rose-600 text-white font-bold rounded-xl 
+         hover:bg-rose-500 transition shadow-lg;
+}
+
+.btn-dark {
+  @apply bg-slate-800 text-white font-semibold rounded-xl px-5 py-3 transition-all;
+}
+.btn-dark:hover { @apply bg-slate-700; }
+
+/* ========================================================= */
+/*  PREMIUM CARDS — DARK ONLY                                */
+/* ========================================================= */
+.card,
+.sld-card,
+.card-ui {
+  @apply p-6 rounded-2xl border shadow-xl backdrop-blur-md space-y-4;
+  background: var(--sld-card);
+  border-color: var(--sld-border);
+  transition: all 0.25s ease;
+}
+
+.card:hover,
+.sld-card:hover,
+.card-ui:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255, 204, 102, 0.15);
+}
+
+.card-title {
+  @apply text-xl font-bold text-yellow-400;
+}
+
+/* ========================================================= */
+/*  FORM INPUTS                                              */
+/* ========================================================= */
+.input,
+.input-ui {
+  @apply w-full px-4 py-3 bg-slate-950 border border-slate-700
+         rounded-xl text-white placeholder-slate-500
+         focus:outline-none focus:ring-2 focus:ring-yellow-400/40;
+}
+
+/* ========================================================= */
+/*  NAVBAR                                                   */
+/* ========================================================= */
+.sld-header {
+  @apply sticky top-0 z-20 border-b backdrop-blur;
+  background: rgba(10, 10, 13, 0.65);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link:hover { color: #f6d67b; }
+
+/* ========================================================= */
+/*  MODAL GLASS                                              */
+/* ========================================================= */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+  @apply rounded-2xl p-6 border border-white/10;
+}
+
+/* ========================================================= */
+/*  SCROLLBAR                                                */
+/* ========================================================= */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0d; }
+::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #686868; }
+/* ========================================================= */
+/*  SLD — GOLD UI FOR WEB3MODAL + NAVBAR WALLET               */
+/* ========================================================= */
+
+:root {
+  --gold-start: #f6d67b;
+  --gold-mid: #e7b64c;
+  --gold-end: #ffdf8c;
+  --gold-glow: 0 0 14px rgba(255, 200, 80, 0.55);
+}
+
+/* GOLD GRADIENT BORDER */
+.sld-gold-border {
+  border: 1.5px solid transparent;
+  background: linear-gradient(#0d0f14, #0d0f14) padding-box,
+              linear-gradient(90deg, var(--gold-start), var(--gold-mid), var(--gold-end)) border-box;
+  border-radius: 14px;
+}
+
+/* GOLD TEXT */
+.sld-gold-text {
+  background: linear-gradient(90deg, var(--gold-start), var(--gold-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* GOLD GLOW ICON */
+.sld-gold-glow {
+  filter: drop-shadow(var(--gold-glow));
+}
+
+/* GOLD BUTTON */
+.sld-gold-btn {
+  background: linear-gradient(90deg, var(--gold-start), var(--gold-mid), var(--gold-end));
+  color: #0d0f14 !important;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 8px 18px;
+  transition: 0.2s;
+}
+.sld-gold-btn:hover {
+  filter: brightness(1.12);
+  box-shadow: var(--gold-glow);
+}
+
+/* WALLET ORB (Gold Version) */
+.wallet-gold-orb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff8c4, #e7b64c 60%, #8f6b1a 85%);
+  box-shadow: var(--gold-glow);
+  animation: orbPulse 3s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.3); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* WEB3MODAL OVERRIDES */
+.w3m-modal {
+  background: #0d0f14 !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(255, 220, 130, 0.12) !important;
+}
+
+.w3m-button {
+  border-radius: 14px !important;
+}
+
+.w3m-wallet-item {
+  background: #0f121a !important;
+  border-radius: 14px !important;
+  border: 1.5px solid rgba(255, 210, 120, 0.1) !important;
+  transition: 0.2s;
+}
+.w3m-wallet-item:hover {
+  border-color: var(--gold-end) !important;
+  box-shadow: var(--gold-glow);
+}
+
+/* Disconnect Button GOLD RED */
+.w3m-button-danger {
+  background: #b3212f !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 12px rgba(255, 120, 120, 0.4);
+}
+.w3m-button-danger:hover {
+  background: #d62839 !important;
+}
+/* ========================================================= */
+/*  SLOW PULSE (used by landing floating logo)                */
+/* ========================================================= */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.85; transform: translateY(0) scale(1); }
+  50% { opacity: 1; transform: translateY(-2px) scale(1.03); }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3.2s ease-in-out infinite;
 }
