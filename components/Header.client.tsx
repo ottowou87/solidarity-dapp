@@ -118,12 +118,10 @@ export default function Header({ isLanding = false }: { isLanding?: boolean }) {
   const showConnected = mounted && isConnected;
 
   /* ================= LANDING-ONLY STYLE ================= */
-  // Landing: more transparent, softer blur, no heavy border, slightly tighter height
   const headerClass = isLanding
     ? "w-full bg-[#050B18]/55 backdrop-blur-md sticky top-0 z-50"
     : "w-full border-b border-white/10 bg-[#0c0f17]/85 backdrop-blur-lg sticky top-0 z-50";
 
-  // Tighter hero spacing comes from thinner header padding on landing
   const innerPadding = isLanding ? "py-3" : "py-4";
 
   return (
@@ -185,10 +183,9 @@ export default function Header({ isLanding = false }: { isLanding?: boolean }) {
           <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/70 border border-white/10 text-xs">
             <span className="text-slate-400">🟡 BNB</span>
             <span className="text-yellow-300 font-semibold">
-             {showConnected && bnbBal
-  ? Number(formatUnits(bnbBal.value, bnbBal.decimals)).toFixed(4)
-  : "--"}
-
+              {showConnected && bnbBal
+                ? Number(formatUnits(bnbBal.value, bnbBal.decimals)).toFixed(4)
+                : "--"}
             </span>
           </div>
 
@@ -209,6 +206,68 @@ export default function Header({ isLanding = false }: { isLanding?: boolean }) {
               <div className="px-4 py-3 text-xs text-slate-400 border-b border-white/10">
                 Wallet Tools
               </div>
+
+              {/* ✅ NAVIGATION SECTION INSIDE DROPDOWN (for mobile users) */}
+              <div className="border-b border-white/10 px-4 py-3">
+                <div className="text-xs text-slate-400 mb-2">Navigation</div>
+
+                <div className="flex flex-col text-sm">
+                  <Link
+                    href="/dashboard"
+                    className="py-1.5 hover:text-yellow-300"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+
+                  <Link
+                    href="/private-sale"
+                    className="py-1.5 hover:text-yellow-300"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Private Sale
+                  </Link>
+
+                  <span className="py-1.5 opacity-50 cursor-not-allowed">
+                    Buy (After Launch)
+                  </span>
+
+                  <Link
+                    href="/staking"
+                    className="py-1.5 hover:text-yellow-300"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Staking
+                  </Link>
+
+                  <Link
+                    href="/claim"
+                    className="py-1.5 hover:text-yellow-300"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Claim
+                  </Link>
+
+                  <Link
+                    href="/account"
+                    className="py-1.5 hover:text-yellow-300"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Account
+                  </Link>
+
+                  {isOwner && (
+                    <Link
+                      href="/admin"
+                      className="py-1.5 text-yellow-300 font-semibold"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      Admin
+                    </Link>
+                  )}
+                </div>
+              </div>
+              {/* ✅ END NAV SECTION */}
 
               <a
                 href={buyMoonPayUrl}

@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();

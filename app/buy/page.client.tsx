@@ -11,11 +11,10 @@ import { presaleContract } from '@/lib/contracts'
 import { parseEther } from 'viem'
 
 export default function BuyPage() {
-  // Wallet
   const { address, isConnected } = useAccount()
   const [bnbAmount, setBnbAmount] = useState('1')
 
-  // Reads
+  // --- Reads ---
   const { data: rate } = useReadContract({
     ...presaleContract,
     functionName: 'rate'
@@ -26,13 +25,12 @@ export default function BuyPage() {
     functionName: 'saleActive'
   })
 
-  // Writes
+  // --- Writes ---
   const { writeContract, data: hash, isPending } = useWriteContract()
-  const { isLoading: confirming, isSuccess } = useWaitForTransactionReceipt({
-    hash
-  })
+  const { isLoading: confirming, isSuccess } =
+    useWaitForTransactionReceipt({ hash })
 
-  // ---- FIXED TOKEN PREVIEW (no decimals bug) ----
+  // --- Estimated Token Preview ---
   const tokenPreview =
     rate && bnbAmount
       ? Number(rate) * Number(bnbAmount)
@@ -55,8 +53,9 @@ export default function BuyPage() {
         Purchase Solidarity (SLD) directly using BNB at the private-sale rate.
       </p>
 
-      <div className="max-w-lg border border-slate-800 rounded-2xl p-6 space-y-4 bg-slate-900/40">
-        
+      <div className="max-w-lg border border-slate-800 rounded-2xl p-6
+                      space-y-4 bg-slate-900/40">
+
         {/* Status */}
         <div className="text-sm space-y-1">
           <div>
@@ -81,18 +80,19 @@ export default function BuyPage() {
 
         {/* Input */}
         <label className="block text-sm space-y-1">
-          <span>BNB amount</span>
+          <span>BNB Amount</span>
           <input
             type="number"
             min="0"
             step="0.01"
             value={bnbAmount}
             onChange={(e) => setBnbAmount(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700"
+            className="w-full px-3 py-2 rounded-lg bg-slate-950
+                       border border-slate-700"
           />
         </label>
 
-        {/* Estimated tokens — FIXED */}
+        {/* Estimated Tokens */}
         <div className="text-xs text-slate-400 min-h-[1.25rem]">
           Estimated tokens:{' '}
           <span className="text-yellow-400 font-semibold">
@@ -104,14 +104,17 @@ export default function BuyPage() {
         <button
           disabled={!isConnected || !saleActive || isPending || confirming}
           onClick={handleBuy}
-          className="w-full px-4 py-2 rounded-lg bg-yellow-400 text-slate-900 font-semibold disabled:opacity-50"
+          className="w-full px-4 py-2 rounded-lg bg-yellow-400
+                     text-slate-900 font-semibold disabled:opacity-50"
         >
-          {isPending || confirming ? 'Processing...' : 'Buy SLD'}
+          {isPending || confirming ? 'Processing…' : 'Buy SLD'}
         </button>
 
-        {/* Transaction Feedback */}
+        {/* Tx Feedback */}
         {hash && (
-          <p className="text-xs text-slate-400 break-all">Tx: {hash}</p>
+          <p className="text-xs text-slate-400 break-all">
+            Tx: {hash}
+          </p>
         )}
 
         {isSuccess && (
